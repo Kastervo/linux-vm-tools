@@ -29,7 +29,10 @@ fi
 #
 
 # Install the xrdp service so we have the auto start behavior
-apt install -y xrdp
+#apt install -y xrdp
+
+wget http://ftp.de.debian.org/debian/pool/main/x/xrdp/xrdp_0.9.17-2_amd64.deb
+dpkg -i xrdp_0.9.17-2_amd64.deb
 
 systemctl stop xrdp
 systemctl stop xrdp-sesman
