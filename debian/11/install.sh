@@ -38,25 +38,13 @@ systemctl stop xrdp-sesman
 # use vsock transport.
 sed -i_orig -e 's/use_vsock=true/use_vsock=false/g' /etc/xrdp/xrdp.ini
 # change the port
-sed -i_orig -e 's/port=3389/port=vsock://-1:3389/g' /etc/xrdp/xrdp.ini
+sed -i_orig -e 's@port=3389@port=vsock://-1:3389@g' /etc/xrdp/xrdp.ini
 # use rdp security.
 sed -i_orig -e 's/security_layer=negotiate/security_layer=rdp/g' /etc/xrdp/xrdp.ini
 # remove encryption validation.
 sed -i_orig -e 's/crypt_level=high/crypt_level=none/g' /etc/xrdp/xrdp.ini
 # disable bitmap compression since its local its much faster
 sed -i_orig -e 's/bitmap_compression=true/bitmap_compression=false/g' /etc/xrdp/xrdp.ini
-
-# Add script to setup the debian session properly
-if [ ! -e /etc/xrdp/startdebian.sh ]; then
-cat >> /etc/xrdp/startdebian.sh << EOF
-#!/bin/sh
-exec /etc/xrdp/startwm.sh
-EOF
-chmod a+x /etc/xrdp/startdebian.sh
-fi
-
-# use the script to setup the ubuntu session
-sed -i_orig -e 's/startwm/startubuntu/g' /etc/xrdp/sesman.ini
 
 # rename the redirected drives to 'shared-drives'
 sed -i -e 's/FuseMountName=thinclient_drives/FuseMountName=shared-drives/g' /etc/xrdp/sesman.ini
