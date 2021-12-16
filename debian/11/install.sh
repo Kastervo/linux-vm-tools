@@ -32,6 +32,8 @@ fi
 #apt install -y xrdp
 
 wget http://ftp.de.debian.org/debian/pool/main/x/xrdp/xrdp_0.9.17-2_amd64.deb
+wget http://ftp.de.debian.org/debian/pool/main/g/glibc/libc6_2.33-1_amd64.deb
+dpkg -i libc6_2.33-1_amd64.deb
 dpkg -i xrdp_0.9.17-2_amd64.deb
 
 systemctl stop xrdp
