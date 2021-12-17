@@ -40,7 +40,6 @@ cd /tmp/xrdp
 
 sudo ./bootstrap
 sudo make
-sudo make install
 sudo ./configure --enable-fuse --enable-jpeg --enable-rfxcodec
 
 sudo checkinstall --pkgname=xrdp --pkgversion=$pkgver --pkgrelease=1 --default
@@ -49,7 +48,6 @@ cd /tmp/xorgxrdp
 
 sudo ./bootstrap
 sudo make
-sudo make install
 sudo ./configure XRDP_CFLAGS=-I/tmp/xrdp/common
 
 sudo checkinstall --pkgname=xorgxrdp --pkgversion=1:$pkgver --pkgrelease=1 --default
