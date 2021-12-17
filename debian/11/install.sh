@@ -29,6 +29,9 @@ fi
 # XRDP
 #
 
+sudo rm -rf /tmp/xrdp
+sudo rm -rf /tmp/xorgxrdp
+
 sudo mkdir /usr/local/lib/xrdp/
 
 cd /tmp
@@ -46,16 +49,11 @@ sudo checkinstall --pkgname=xrdp --pkgversion=$pkgver --pkgrelease=1 --default
 
 cd /tmp/xorgxrdp
 
-sudo ./bootstrap 
-sudo ./configure 
+sudo ./bootstrap
+sudo ./configure
 sudo make
 
 sudo checkinstall --pkgname=xorgxrdp --pkgversion=1:$pkgver --pkgrelease=1 --default
-
-sudo systemctl daemon-reload
-sudo systemctl enable xrdp.service
-sudo systemctl enable xrdp-sesman.service
-sudo systemctl start xrdp
 
 # Configure the installed XRDP ini files.
 # use vsock transport.
