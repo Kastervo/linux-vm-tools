@@ -16,7 +16,8 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-apt update && apt upgrade -y
+sudo apt update && apt upgrade -y
+sudo apt install libx11-dev libxfixes-dev libssl-dev libpam0g-dev libtool libjpeg-dev flex bison gettext autoconf libxml-parser-perl libfuse-dev xsltproc libxrandr-dev python3-libxml2 nasm fuse pkg-config git intltool checkinstall -y
 
 if [ -f /var/run/reboot-required ]; then
     echo "A reboot is required in order to proceed with the install." >&2
@@ -28,16 +29,33 @@ fi
 # XRDP
 #
 
-# Install the xrdp service so we have the auto start behavior
-#apt install -y xrdp
+sudo mkdir /usr/local/lib/xrdp/
 
-wget http://ftp.de.debian.org/debian/pool/main/x/xrdp/xrdp_0.9.17-2_amd64.deb
-wget http://ftp.de.debian.org/debian/pool/main/g/glibc/libc6_2.33-1_amd64.deb
-dpkg -i libc6_2.33-1_amd64.deb
-dpkg -i xrdp_0.9.17-2_amd64.deb
+cd /tmp
 
-systemctl stop xrdp
-systemctl stop xrdp-sesman
+git clone https://github.com/neutrinolabs/xorgxrdp.git
+git clone https://github.com/neutrinolabs/xrdp.git
+
+cd /tmp/xrdp
+
+sudo ./bootstrap
+sudo ./configure --enable-fuse --enable-jpeg --enable-rfxcodec
+sudo make
+
+sudo checkinstall --pkgname=xrdp --pkgversion=$pkgver --pkgrelease=1 --default
+
+cd /tmp/xorgxrdp
+
+sudo ./bootstrap 
+sudo ./configure 
+sudo make
+
+sudo checkinstall --pkgname=xorgxrdp --pkgversion=1:$pkgver --pkgrelease=1 --default
+
+sudo systemctl daemon-reload
+sudo systemctl enable xrdp.service
+sudo systemctl enable xrdp-sesman.service
+sudo systemctl start xrdp
 
 # Configure the installed XRDP ini files.
 # use vsock transport.
