@@ -39,7 +39,7 @@ git clone https://github.com/neutrinolabs/xrdp.git
 cd /tmp/xrdp
 
 sudo ./bootstrap
-sudo ./configure --enable-fuse --enable-jpeg --enable-rfxcodec
+sudo ./configure
 sudo make
 
 sudo checkinstall --pkgname=xrdp --pkgversion=$pkgver --pkgrelease=1 --default
@@ -108,6 +108,8 @@ EOF
 
 # reconfigure the service
 systemctl daemon-reload
+sudo systemctl enable xrdp.service
+sudo systemctl enable xrdp-sesman.service
 systemctl start xrdp
 
 #
