@@ -29,9 +29,6 @@ fi
 # XRDP
 #
 
-sudo rm -rf /tmp/xrdp
-sudo rm -rf /tmp/xorgxrdp
-
 sudo mkdir /usr/local/lib/xrdp/
 
 cd /tmp
