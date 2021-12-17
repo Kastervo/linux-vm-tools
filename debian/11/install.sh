@@ -47,7 +47,7 @@ sudo checkinstall --pkgname=xrdp --pkgversion=$pkgver --pkgrelease=1 --default
 cd /tmp/xorgxrdp
 
 sudo ./bootstrap
-sudo ./configure XRDP_CFLAGS=-I/tmp/xrdp/common
+sudo ./configure
 sudo make
 
 sudo checkinstall --pkgname=xorgxrdp --pkgversion=1:$pkgver --pkgrelease=1 --default
