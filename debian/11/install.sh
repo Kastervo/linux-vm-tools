@@ -1,11 +1,12 @@
 #!/bin/bash
 
 #
-# This script is for Debian 11 Bullseye to download and install XRDP+XORGXRDP via
-# source.
+# This script is for Debian 11 Bullseye to build and install from sources XRDP+XORGXRDP with sound redirection.
 #
-# Major thanks to: http://c-nergy.be/blog/?p=11336 for the tips.
-#
+# Credits: 
+# - http://c-nergy.be/blog/?p=11336
+# - https://c-nergy.be/blog/?p=17113
+# 
 
 ###############################################################################
 # Update our machine to the latest code if we need to.
