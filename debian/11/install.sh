@@ -17,7 +17,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 sudo apt update && sudo apt upgrade -y
-#sudo apt install libconfig-dev build-essential dpkg-dev libpulse-dev libx11-dev libxfixes-dev libssl-dev libpam0g-dev libtool libjpeg-dev flex bison gettext autoconf libxml-parser-perl libfuse-dev xsltproc libxrandr-dev python3-libxml2 nasm fuse pkg-config git intltool checkinstall xserver-xorg-dev -y
+sudo apt install libconfig-dev build-essential dpkg-dev libpulse-dev libx11-dev libxfixes-dev libssl-dev libpam0g-dev libtool libjpeg-dev flex bison gettext autoconf libxml-parser-perl libfuse-dev xsltproc libxrandr-dev python3-libxml2 nasm fuse pkg-config git intltool checkinstall xserver-xorg-dev -y
 
 if [ -f /var/run/reboot-required ]; then
     echo "A reboot is required in order to proceed with the install." >&2
@@ -33,7 +33,7 @@ fi
 # XRDP
 #
 
-sudo apt install git autoconf libtool pkg-config gcc g++ make  libssl-dev libpam0g-dev libjpeg-dev libx11-dev libxfixes-dev libxrandr-dev  flex bison libxml2-dev intltool xsltproc xutils-dev python-libxml2 g++ xutils libfuse-dev libmp3lame-dev nasm libpixman-1-dev xserver-xorg-dev checkinstall -y
+#sudo apt install git autoconf libtool pkg-config gcc g++ make  libssl-dev libpam0g-dev libjpeg-dev libx11-dev libxfixes-dev libxrandr-dev  flex bison libxml2-dev intltool xsltproc xutils-dev python-libxml2 g++ xutils libfuse-dev libmp3lame-dev nasm libpixman-1-dev xserver-xorg-dev checkinstall -y
 
 sudo mkdir /usr/local/lib/xrdp/
 
@@ -128,7 +128,7 @@ systemctl start xrdp
 
 pulsever=$(pulseaudio --version | awk '{print $2}')
 
-sudo apt install git libconfig-dev libpulse-dev autoconf m4 intltool build-essential dpkg-dev libtool libsndfile-dev libcap-dev -y libjson-c-dev
+#sudo apt install git libconfig-dev libpulse-dev autoconf m4 intltool build-essential dpkg-dev libtool libsndfile-dev libcap-dev -y libjson-c-dev
 
 sudo apt build-dep pulseaudio -y
 
