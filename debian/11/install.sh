@@ -117,8 +117,7 @@ systemctl start xrdp
 ###############################################################################
 
 # Pulseaudio
-enable_sound()
-{
+
 pulsever=$(pulseaudio --version | awk '{print $2}')
 sudo apt build-dep pulseaudio -y
 cd /tmp
@@ -135,6 +134,5 @@ sudo make
 cd /tmp/pulseaudio-$pulsever/pulseaudio-module-xrdp/src/.libs
 sudo install -t "/var/lib/xrdp-pulseaudio-installer" -D -m 644 *.so
 sudo install -t "/usr/lib/pulse-$pulsever/modules" -D -m 644 *.so
-}
 
 echo "Reboot your machine to begin using XRDP."
