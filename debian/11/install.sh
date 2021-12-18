@@ -124,10 +124,8 @@ cd /tmp
 sudo apt source pulseaudio=$pulsever
 cd /tmp/pulseaudio-$pulsever
 sudo ./configure
-cd /tmp
 git clone https://github.com/neutrinolabs/pulseaudio-module-xrdp.git
-cd /tmp/pulseaudio-module-xrdp
-sudo ./scripts/install_pulseaudio_sources_apt_wrapper.sh
+cd pulseaudio-module-xrdp
 sudo ./bootstrap
 sudo ./configure PULSE_DIR="/tmp/pulseaudio-$pulsever"
 sudo make
