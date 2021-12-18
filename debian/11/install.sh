@@ -33,8 +33,6 @@ fi
 # XRDP
 #
 
-#sudo apt install git autoconf libtool pkg-config gcc g++ make  libssl-dev libpam0g-dev libjpeg-dev libx11-dev libxfixes-dev libxrandr-dev  flex bison libxml2-dev intltool xsltproc xutils-dev python-libxml2 g++ xutils libfuse-dev libmp3lame-dev nasm libpixman-1-dev xserver-xorg-dev checkinstall -y
-
 sudo mkdir /usr/local/lib/xrdp/
 
 cd /tmp
@@ -127,8 +125,6 @@ systemctl start xrdp
 #
 
 pulsever=$(pulseaudio --version | awk '{print $2}')
-
-#sudo apt install git libconfig-dev libpulse-dev autoconf m4 intltool build-essential dpkg-dev libtool libsndfile-dev libcap-dev -y libjson-c-dev
 
 sudo apt build-dep pulseaudio -y
 
