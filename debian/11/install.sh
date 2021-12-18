@@ -33,32 +33,30 @@ fi
 # XRDP
 #
 
-sudo apt install xrdp -y
+sudo apt install git autoconf libtool pkg-config gcc g++ make  libssl-dev libpam0g-dev libjpeg-dev libx11-dev libxfixes-dev libxrandr-dev  flex bison libxml2-dev intltool xsltproc xutils-dev python-libxml2 g++ xutils libfuse-dev libmp3lame-dev nasm libpixman-1-dev xserver-xorg-dev checkinstall -y
 
-#sudo apt install libx11-dev libxfixes-dev libssl-dev libpam0g-dev libtool libjpeg-dev flex bison gettext autoconf libxml-parser-perl libfuse-dev xsltproc libxrandr-dev python3-libxml2 nasm fuse pkg-config git intltool checkinstall -y
+sudo mkdir /usr/local/lib/xrdp/
 
-#sudo mkdir /usr/local/lib/xrdp/
+cd /tmp
 
-#cd /tmp
+git clone https://github.com/neutrinolabs/xorgxrdp.git
+git clone https://github.com/neutrinolabs/xrdp.git
 
-#git clone https://github.com/neutrinolabs/xorgxrdp.git
-#git clone https://github.com/neutrinolabs/xrdp.git
+cd /tmp/xrdp
 
-#cd /tmp/xrdp
+sudo ./bootstrap
+sudo ./configure --enable-vsock --enable-fuse --enable-jpeg --enable-rfxcodec
+sudo make
 
-#sudo ./bootstrap
-#sudo ./configure
-#sudo make
+sudo checkinstall --pkgname=xrdp --pkgversion=$pkgver --pkgrelease=1 --default
 
-#sudo checkinstall --pkgname=xrdp --pkgversion=$pkgver --pkgrelease=1 --default
+cd /tmp/xorgxrdp
 
-#cd /tmp/xorgxrdp
+sudo ./bootstrap
+sudo ./configure
+sudo make
 
-#sudo ./bootstrap
-#sudo ./configure
-#sudo make
-
-#sudo checkinstall --pkgname=xorgxrdp --pkgversion=1:$pkgver --pkgrelease=1 --default
+sudo checkinstall --pkgname=xorgxrdp --pkgversion=1:$pkgver --pkgrelease=1 --default
 
 # Configure the installed XRDP ini files.
 # use vsock transport.
