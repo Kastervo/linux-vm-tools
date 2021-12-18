@@ -17,7 +17,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 sudo apt update && apt upgrade -y
-sudo apt install libx11-dev libxfixes-dev libssl-dev libpam0g-dev libtool libjpeg-dev flex bison gettext autoconf libxml-parser-perl libfuse-dev xsltproc libxrandr-dev python3-libxml2 nasm fuse pkg-config git intltool checkinstall xserver-xorg-dev -y
+sudo apt install build-essential dpkg-dev libpulse-dev libx11-dev libxfixes-dev libssl-dev libpam0g-dev libtool libjpeg-dev flex bison gettext autoconf libxml-parser-perl libfuse-dev xsltproc libxrandr-dev python3-libxml2 nasm fuse pkg-config git intltool checkinstall xserver-xorg-dev -y
 
 if [ -f /var/run/reboot-required ]; then
     echo "A reboot is required in order to proceed with the install." >&2
@@ -56,7 +56,7 @@ sudo checkinstall --pkgname=xorgxrdp --pkgversion=1:$pkgver --pkgrelease=1 --def
 # use vsock transport.
 sed -i_orig -e 's/use_vsock=true/use_vsock=false/g' /etc/xrdp/xrdp.ini
 # change the port
-sed -i_orig -e 's@port=3389@port=vsock://-1:3389@g' /etc/xrdp/xrdp.ini
+sed -i_orig -e 's@port=3389@port=tcp://:3389@g' /etc/xrdp/xrdp.ini
 # use rdp security.
 sed -i_orig -e 's/security_layer=negotiate/security_layer=rdp/g' /etc/xrdp/xrdp.ini
 # remove encryption validation.
@@ -116,5 +116,18 @@ systemctl start xrdp
 # End XRDP
 ###############################################################################
 
-echo "Install is complete."
+# Pulseaudio
+
+cd /tmp
+
+git clone https://github.com/neutrinolabs/pulseaudio-module-xrdp.git
+
+cd /tmp/pulseaudio-module-xrdp
+
+sudo ./scripts/install_pulseaudio_sources_apt_wrapper.sh
+
+sudo ./bootstrap
+sudo ./configure PULSE_DIR=~/pulseaudio.src
+sudo make
+
 echo "Reboot your machine to begin using XRDP."
